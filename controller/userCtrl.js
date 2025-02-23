@@ -40,5 +40,30 @@ const asyncHandler = require('express-async-handler');
  });
 
 
+ // get all users
+ const getallUser = asyncHandler(async (req,res) => {
+    try{
+        const getUsers = await User.find();
+        res.json(getUsers);
+    }
+    catch(error){
+        throw new Error(error);
+    }
+ })
 
- module.exports = {createUser, loginUserCtrl};
+ // get a single user
+ const getSingleUser = asyncHandler(async (req,res) => {
+        const {id} = req.params;
+        try{
+            const getaUser = await User.findById(id);
+            res.json({
+                getaUser
+        });  
+        } catch(error){
+            throw new Error(error);
+        }
+});
+
+
+
+ module.exports = {createUser, loginUserCtrl, getallUser, getSingleUser};
